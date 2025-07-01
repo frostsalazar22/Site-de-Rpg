@@ -1,0 +1,124 @@
+.sidebar-direita {
+    position: fixed;
+    top: 60px;
+    right: 100px;
+    width: 240px;
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.sidebar-direita h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+}
+
+.sidebar-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 13px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0; /* adiciona para uniformizar */
+}
+
+.sidebar-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-direita form {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-direita form button.sidebar-btn {
+    all: unset;
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    box-sizing: border-box;
+    margin: 0; /* remove margens extras */
+}
+
+.sidebar-direita form button.sidebar-btn:hover {
+    background-color: #a71d2a;
+    transform: translateY(-1px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-direita button.btn-atualizar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0; /* <- garante espaçamento consistente */
+    box-sizing: border-box;
+}
+
+.sidebar-direita button.btn-atualizar:hover {
+    background-color: #1e7e34;
+    transform: scale(1.05);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Cores específicas */
+.btn-menu,
+.btn-visualizar,
+.btn-lista {
+    background-color: #007BFF;
+}
+
+.btn-menu:hover,
+.btn-visualizar:hover,
+.btn-lista:hover {
+    background-color: #0056b3;
+}
+
+.btn-atualizar {
+    background-color: #28a745;
+}
+
+.btn-atualizar:hover {
+    background-color: #1e7e34;
+}
+
+.btn-excluir {
+    background-color: #dc3545;
+}
+
+.btn-excluir:hover {
+    background-color: #a71d2a;
+}

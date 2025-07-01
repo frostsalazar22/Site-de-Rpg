@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Criatura;
+use App\Models\Equipamento;
 use Illuminate\Support\Facades\File;
 
 class ExportSeederController extends Controller
@@ -10,8 +11,10 @@ class ExportSeederController extends Controller
     public function exportar()
     {
         $criaturas = Criatura::all()->toArray();
+        $equipamentos = Equipamento::all()->toArray();
 
-        $data = var_export($criaturas, true);
+        $criaturasData = var_export($criaturas, true);
+        $equipamentosData = var_export($equipamentos, true);
 
         $seederContent = <<<PHP
 <?php
@@ -20,22 +23,27 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Criatura;
+use App\Models\Equipamento;
 
-class CriaturaSeeder extends Seeder
+class GuiaRPGSeeder extends Seeder
 {
     public function run()
     {
-        \$data = {$data};
-
-        foreach (\$data as \$item) {
+        \$criaturas = {$criaturasData};
+        foreach (\$criaturas as \$item) {
             Criatura::create(\$item);
+        }
+
+        \$equipamentos = {$equipamentosData};
+        foreach (\$equipamentos as \$item) {
+            Equipamento::create(\$item);
         }
     }
 }
 PHP;
 
-        File::put(database_path('seeders/CriaturaSeeder.php'), $seederContent);
+        File::put(database_path('seeders/GuiaRPGSeeder.php'), $seederContent);
 
-        return redirect()->back()->with('success', 'Seeder gerado com sucesso em database/seeders/CriaturaSeeder.php!');
+        return redirect()->back()->with('success', 'Seeder único gerado com sucesso em database/seeders/GuiaRPGSeeder.php!');
     }
 }

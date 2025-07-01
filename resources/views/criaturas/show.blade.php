@@ -1,120 +1,143 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('css/ficha.view.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
-<div class="container" style="display: flex; gap: 30px;"> {{-- Conteúdo principal da criatura --}} 
-<div style="flex: 1;"> 
-<h1>Detalhes da Criatura: {{ $criatura->nome }}</h1>
-php-template
-Copiar
-Editar
-    @if($criatura->imagem)
-        <div style="margin-bottom: 20px;">
-            <img src="{{ asset('storage/' . $criatura->imagem) }}" alt="{{ $criatura->nome }}" style="max-width: 300px;">
+<div class="ficha-container">
+    <div class="ficha">
+        <h1 class="ficha-titulo">{{ $criatura->nome }}</h1>
+
+        @if($criatura->imagem)
+        <div class="ficha-img-container">
+            <img src="{{ asset('storage/' . $criatura->imagem) }}" alt="{{ $criatura->nome }}" class="ficha-img">
         </div>
-    @endif
+        @endif
 
-    <h3>Identificação</h3>
-    <p><strong>Tipo:</strong> {{ $criatura->tipo }}</p>
-    <p><strong>Subtipo:</strong> {{ $criatura->subtipo }}</p>
-    <p><strong>Alinhamento:</strong> {{ $criatura->alinhamento }}</p>
-    <p><strong>Classe de Desafio:</strong> {{ $criatura->classe_desafio }}</p>
-    <p><strong>Categoria de Perigo:</strong> {{ $criatura->categoria_perigo }}</p>
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Identificação</h2>
+            <p><strong>Tipo:</strong> {{ $criatura->tipo }}</p>
+            <p><strong>Subtipo:</strong> {{ $criatura->subtipo }}</p>
+            <p><strong>Alinhamento:</strong> {{ $criatura->alinhamento }}</p>
+            <p><strong>Classe de Desafio:</strong> {{ $criatura->classe_desafio }}</p>
+            <p><strong>Categoria de Perigo:</strong> {{ $criatura->categoria_perigo }}</p>
+        </div>
 
-    <h3>Características Físicas</h3>
-    <p><strong>Tamanho:</strong> {{ $criatura->tamanho }}</p>
-    <p><strong>Velocidade:</strong> {{ $criatura->velocidade }}</p>
-    <p><strong>Aparência:</strong> {!! nl2br(e($criatura->aparencia)) !!}</p>
-    <p><strong>Peso e Altura:</strong> {{ $criatura->peso_altura }}</p>
-    <p><strong>Localização Preferida:</strong> {{ $criatura->localizacao_preferida }}</p>
-    <p><strong>Presença Ambiental:</strong> {!! nl2br(e($criatura->presenca_ambiental)) !!}</p>
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Características Físicas</h2>
+            <p><strong>Tamanho:</strong> {{ $criatura->tamanho }}</p>
+            <p><strong>Velocidade:</strong> {{ $criatura->velocidade }}</p>
+            <p><strong>Aparência:</strong> {!! nl2br(e($criatura->aparencia)) !!}</p>
+            <p><strong>Peso e Altura:</strong> {{ $criatura->peso_altura }}</p>
+            <p><strong>Localização Preferida:</strong> {{ $criatura->localizacao_preferida }}</p>
+            <p><strong>Presença Ambiental:</strong> {!! nl2br(e($criatura->presenca_ambiental)) !!}</p>
+        </div>
 
-    <h3>Atributos</h3>
-    <p><strong>FOR:</strong> {{ $criatura->for }}</p>
-    <p><strong>DES:</strong> {{ $criatura->des }}</p>
-    <p><strong>CON:</strong> {{ $criatura->con }}</p>
-    <p><strong>INT:</strong> {{ $criatura->int }}</p>
-    <p><strong>SAB:</strong> {{ $criatura->sab }}</p>
-    <p><strong>CAR:</strong> {{ $criatura->car }}</p>
+        <div class="ficha-section atributos">
+        <h2 class="titulo-centralizado">Atributos</h2>
+        <div class="atributos-grid">
+            <div><strong>FOR:</strong><br>{{ $criatura->for }}</div>
+            <div><strong>DES:</strong><br>{{ $criatura->des }}</div>
+            <div><strong>CON:</strong><br>{{ $criatura->con }}</div>
+            <div><strong>INT:</strong><br>{{ $criatura->int }}</div>
+            <div><strong>SAB:</strong><br>{{ $criatura->sab }}</div>
+            <div><strong>CAR:</strong><br>{{ $criatura->car }}</div>
+        </div>
+        </div>
 
-    <h3>Resistências</h3>
-    <p><strong>Resistências:</strong> {!! nl2br(e($criatura->resistencias)) !!}</p>
-    <p><strong>Imunidades:</strong> {!! nl2br(e($criatura->imunidades)) !!}</p>
-    <p><strong>Vulnerabilidades:</strong> {!! nl2br(e($criatura->vulnerabilidades)) !!}</p>
-    <p><strong>Resistências Condicionais:</strong> {!! nl2br(e($criatura->resistencias_condicionais)) !!}</p>
 
-    <h3>Estatísticas de Combate</h3>
-    <p><strong>PV:</strong> {{ $criatura->pv }}</p>
-    <p><strong>CA:</strong> {{ $criatura->ca }}</p>
-    <p><strong>Reações:</strong> {!! nl2br(e($criatura->reacoes)) !!}</p>
-    <p><strong>Condições Infligidas:</strong> {!! nl2br(e($criatura->condicoes_infligidas)) !!}</p>
 
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Resistências</h2>
+            <p><strong>Resistências:</strong> {!! nl2br(e($criatura->resistencias)) !!}</p>
+            <p><strong>Imunidades:</strong> {!! nl2br(e($criatura->imunidades)) !!}</p>
+            <p><strong>Vulnerabilidades:</strong> {!! nl2br(e($criatura->vulnerabilidades)) !!}</p>
+            <p><strong>Condicionais:</strong> {!! nl2br(e($criatura->resistencias_condicionais)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Combate</h2>
+            <p><strong>PV:</strong> {{ $criatura->pv }}</p>
+            <p><strong>CA:</strong> {{ $criatura->ca }}</p>
+            <p><strong>Reações:</strong> {!! nl2br(e($criatura->reacoes)) !!}</p>
+            <p><strong>Condições Infligidas:</strong> {!! nl2br(e($criatura->condicoes_infligidas)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Ações</h2>
+            <p><strong>Comuns:</strong> {!! nl2br(e($criatura->ataques_comuns)) !!}</p>
+            <p><strong>Especiais:</strong> {!! nl2br(e($criatura->acoes_especiais)) !!}</p>
+            <p><strong>Lendárias:</strong> {!! nl2br(e($criatura->acoes_lendarias)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Lore</h2>
+            <p><strong>Origem:</strong> {!! nl2br(e($criatura->origem)) !!}</p>
+            <p><strong>Motivações:</strong> {!! nl2br(e($criatura->motivacoes)) !!}</p>
+            <p><strong>Hábito Social:</strong> {!! nl2br(e($criatura->habito_social)) !!}</p>
+            <p><strong>Mistérios:</strong> {!! nl2br(e($criatura->misterios)) !!}</p>
+            <p><strong>Rotina:</strong> {!! nl2br(e($criatura->rotina)) !!}</p>
+            <p><strong>Impacto no Mundo:</strong> {!! nl2br(e($criatura->impacto_mundo)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Estágios</h2>
+            <p><strong>Descrição:</strong> {!! nl2br(e($criatura->descricao_estagios)) !!}</p>
+            <p><strong>Condições:</strong> {!! nl2br(e($criatura->condicoes_transicao)) !!}</p>
+            <p><strong>Estágio 1:</strong> {!! nl2br(e($criatura->estagio_1)) !!}</p>
+            <p><strong>Estágio 2:</strong> {!! nl2br(e($criatura->estagio_2)) !!}</p>
+            <p><strong>Estágio 3:</strong> {!! nl2br(e($criatura->estagio_3)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Habilidades</h2>
+            <p><strong>Passivas:</strong> {!! nl2br(e($criatura->habilidades_passivas)) !!}</p>
+            <p><strong>Ativas:</strong> {!! nl2br(e($criatura->habilidades_ativas)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Interações Narrativas</h2>
+            <p><strong>Influência:</strong> {!! nl2br(e($criatura->influencia_jogo)) !!}</p>
+            <p><strong>Conexões:</strong> {!! nl2br(e($criatura->conexoes)) !!}</p>
+            <p><strong>Cinemáticos:</strong> {!! nl2br(e($criatura->detalhes_cinematicos)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Recompensas</h2>
+            <p><strong>Tesouro:</strong> {!! nl2br(e($criatura->tesouro)) !!}</p>
+            <p><strong>Alquimia:</strong> {!! nl2br(e($criatura->componentes_alquimia)) !!}</p>
+            <p><strong>Conhecimento:</strong> {!! nl2br(e($criatura->conhecimento)) !!}</p>
+            <p><strong>Benefícios:</strong> {!! nl2br(e($criatura->beneficios_temporarios)) !!}</p>
+        </div>
+
+        <div class="ficha-section">
+            <h2 class="titulo-centralizado">Notas Finais</h2>
+            <p><strong>Notas:</strong> {!! nl2br(e($criatura->notas_opcionais)) !!}</p>
+            <p><strong>Variantes:</strong> {!! nl2br(e($criatura->habilidades_variantes)) !!}</p>
+            <p><strong>Evolução:</strong> {!! nl2br(e($criatura->evolucao)) !!}</p>
+            <p><strong>Impacto Ambiental:</strong> {!! nl2br(e($criatura->impacto_ambiente)) !!}</p>
+        </div>
+    </div>
+
+    <div class="sidebar-direita">
     <h3>Ações</h3>
-    <p><strong>Ataques Comuns:</strong> {!! nl2br(e($criatura->ataques_comuns)) !!}</p>
-    <p><strong>Ações Especiais:</strong> {!! nl2br(e($criatura->acoes_especiais)) !!}</p>
-    <p><strong>Ações Lendárias:</strong> {!! nl2br(e($criatura->acoes_lendarias)) !!}</p>
 
-    <h3>Comportamento e Lore</h3>
-    <p><strong>Origem:</strong> {!! nl2br(e($criatura->origem)) !!}</p>
-    <p><strong>Motivações:</strong> {!! nl2br(e($criatura->motivacoes)) !!}</p>
-    <p><strong>Hábito Social:</strong> {!! nl2br(e($criatura->habito_social)) !!}</p>
-    <p><strong>Mistérios:</strong> {!! nl2br(e($criatura->misterios)) !!}</p>
-    <p><strong>Rotina:</strong> {!! nl2br(e($criatura->rotina)) !!}</p>
-    <p><strong>Impacto no Mundo:</strong> {!! nl2br(e($criatura->impacto_mundo)) !!}</p>
+    <a href="{{ url('/') }}" class="sidebar-btn btn-menu">Voltar ao Menu</a>
 
-    <h3>Estágios</h3>
-    <p><strong>Descrição dos Estágios:</strong> {!! nl2br(e($criatura->descricao_estagios)) !!}</p>
-    <p><strong>Condições de Transição:</strong> {!! nl2br(e($criatura->condicoes_transicao)) !!}</p>
-    <p><strong>Estágio 1:</strong> {!! nl2br(e($criatura->estagio_1)) !!}</p>
-    <p><strong>Estágio 2:</strong> {!! nl2br(e($criatura->estagio_2)) !!}</p>
-    <p><strong>Estágio 3:</strong> {!! nl2br(e($criatura->estagio_3)) !!}</p>
+    <a href="{{ route('criaturas.index') }}" class="sidebar-btn btn-lista">Voltar à Lista</a>
+    
+    <form action="{{ route('criaturas.edit', $criatura->id) }}" method="GET">
+        <button type="submit" class="sidebar-btn btn-atualizar">Editar Criatura</button>
+    </form>
 
-    <h3>Habilidades</h3>
-    <p><strong>Habilidades Passivas:</strong> {!! nl2br(e($criatura->habilidades_passivas)) !!}</p>
-    <p><strong>Habilidades Ativas:</strong> {!! nl2br(e($criatura->habilidades_ativas)) !!}</p>
-
-    <h3>Interações Narrativas</h3>
-    <p><strong>Influência no Jogo:</strong> {!! nl2br(e($criatura->influencia_jogo)) !!}</p>
-    <p><strong>Conexões:</strong> {!! nl2br(e($criatura->conexoes)) !!}</p>
-    <p><strong>Detalhes Cinemáticos:</strong> {!! nl2br(e($criatura->detalhes_cinematicos)) !!}</p>
-
-    <h3>Recompensas</h3>
-    <p><strong>Tesouro:</strong> {!! nl2br(e($criatura->tesouro)) !!}</p>
-    <p><strong>Componentes de Alquimia:</strong> {!! nl2br(e($criatura->componentes_alquimia)) !!}</p>
-    <p><strong>Conhecimento:</strong> {!! nl2br(e($criatura->conhecimento)) !!}</p>
-    <p><strong>Benefícios Temporários:</strong> {!! nl2br(e($criatura->beneficios_temporarios)) !!}</p>
-
-    <h3>Notas Finais</h3>
-    <p><strong>Notas Opcionais:</strong> {!! nl2br(e($criatura->notas_opcionais)) !!}</p>
-    <p><strong>Habilidades Variantes:</strong> {!! nl2br(e($criatura->habilidades_variantes)) !!}</p>
-    <p><strong>Evolução:</strong> {!! nl2br(e($criatura->evolucao)) !!}</p>
-    <p><strong>Impacto no Ambiente:</strong> {!! nl2br(e($criatura->impacto_ambiente)) !!}</p>
-</div>
-
-{{-- Sidebar de ações --}}
-<div style="
-    width: 220px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-left: 1px solid #ddd;
-    border-radius: 8px;
-    height: fit-content;
-    position: sticky;
-    top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-">
-    <h4 style="margin-top: 0;">Ações</h4>
-    <a href="{{ route('criaturas.index') }}" class="btn btn-secondary">← Voltar à lista</a>
-    <a href="{{ route('criaturas.edit', $criatura->id) }}" class="btn btn-primary">✏️ Editar Criatura</a>
-    <form action="{{ route('criaturas.destroy', $criatura->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta criatura?');">
+    <form action="{{ route('criaturas.destroy', $criatura->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este equipamento?')">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger">🗑️ Excluir Criatura</button>
+        <button type="submit" class="sidebar-btn btn-excluir">Excluir Criatura</button>
     </form>
-    <a href="{{ url('/') }}" class="btn btn-outline-dark">🏠 Voltar ao Menu</a>
+
+    </div>
+
 </div>
+@endsection
 
-
-</div> @endsection

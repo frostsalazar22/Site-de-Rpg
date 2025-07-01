@@ -1,295 +1,308 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="display: flex; gap: 30px;">
-    {{-- Formulário de edição --}}
-    <div style="flex: 1;">
-        <h1>Editar Criatura: {{ $criatura->nome }}</h1>
+<link rel="stylesheet" href="{{ asset('css/ficha.create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+<div class="ficha-wrapper">
+  <div class="ficha-container">
+    <div class="ficha">
+      <h1 class="ficha-titulo">Editar Criatura: {{ $criatura->nome }}</h1>
 
-        <form action="{{ route('criaturas.update', $criatura->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
+      @if ($errors->any())
+        <div style="color: red; margin-bottom: 20px;">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
-            <h2>Imagem</h2>
-            <div>
-                <label>Imagem Atual:</label>
-                @if($criatura->imagem)
-                    <img src="{{ asset('storage/' . $criatura->imagem) }}" alt="Imagem Atual" style="max-width: 150px;">
-                @else
-                    <p>Sem imagem</p>
-                @endif
-            </div>
-            <div>
-                <label>Nova Imagem (opcional):</label>
-                <input type="file" name="imagem">
-            </div>
+      <form id="form-editar-criatura" action="{{ route('criaturas.update', $criatura->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-        <h2>Identificação</h2>
-        <div>
-            <label>Nome:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Identificação</h2>
+
+          <label data-label="Imagem Atual:">
+            @if($criatura->imagem)
+              <img src="{{ asset('storage/' . $criatura->imagem) }}" alt="Imagem Atual" style="max-width: 150px; display: block; margin-bottom: 10px;">
+            @else
+              <p>Sem imagem</p>
+            @endif
+          </label>
+
+          <label data-label="Nova Imagem (opcional):">
+            <input type="file" name="imagem">
+          </label>
+
+          <label data-label="Nome:">
             <input type="text" name="nome" value="{{ old('nome', $criatura->nome) }}" required>
-        </div>
+          </label>
 
-        <div>
-            <label>Tipo:</label>
+          <label data-label="Tipo:">
             <input type="text" name="tipo" value="{{ old('tipo', $criatura->tipo) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Subtipo:</label>
+          <label data-label="Subtipo:">
             <input type="text" name="subtipo" value="{{ old('subtipo', $criatura->subtipo) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Alinhamento:</label>
+          <label data-label="Alinhamento:">
             <input type="text" name="alinhamento" value="{{ old('alinhamento', $criatura->alinhamento) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Classe de Desafio:</label>
+          <label data-label="Classe de Desafio:">
             <input type="text" name="classe_desafio" value="{{ old('classe_desafio', $criatura->classe_desafio) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Categoria de Perigo:</label>
+          <label data-label="Categoria de Perigo:">
             <input type="text" name="categoria_perigo" value="{{ old('categoria_perigo', $criatura->categoria_perigo) }}">
+          </label>
         </div>
 
-        <h2>Características Físicas</h2>
-        <div>
-            <label>Tamanho:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Características Físicas</h2>
+
+          <label data-label="Tamanho:">
             <input type="text" name="tamanho" value="{{ old('tamanho', $criatura->tamanho) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Velocidade:</label>
+          <label data-label="Velocidade:">
             <input type="text" name="velocidade" value="{{ old('velocidade', $criatura->velocidade) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Aparência:</label>
+          <label data-label="Aparência:">
             <textarea name="aparencia">{{ old('aparencia', $criatura->aparencia) }}</textarea>
-        </div>
+          </label>
 
-        <div>
-            <label>Peso e Altura:</label>
+          <label data-label="Peso e Altura:">
             <input type="text" name="peso_altura" value="{{ old('peso_altura', $criatura->peso_altura) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Localização Preferida:</label>
+          <label data-label="Localização Preferida:">
             <input type="text" name="localizacao_preferida" value="{{ old('localizacao_preferida', $criatura->localizacao_preferida) }}">
-        </div>
+          </label>
 
-        <div>
-            <label>Presença Ambiental:</label>
+          <label data-label="Presença Ambiental:">
             <textarea name="presenca_ambiental">{{ old('presenca_ambiental', $criatura->presenca_ambiental) }}</textarea>
+          </label>
         </div>
 
-        <h2>Atributos</h2>
-        @foreach (['for', 'des', 'con', 'int', 'sab', 'car'] as $atributo)
-            <div>
+        <div class="ficha-section atributos">
+          <h2 class="titulo-centralizado">Atributos</h2>
+          <div class="atributos-grid">
+            @foreach (['for', 'des', 'con', 'int', 'sab', 'car'] as $atributo)
+              <div>
                 <label>{{ strtoupper($atributo) }}:</label>
                 <input type="number" name="{{ $atributo }}" value="{{ old($atributo, $criatura->$atributo) }}">
-            </div>
-        @endforeach
+              </div>
+            @endforeach
+          </div>
+        </div>
 
-        <h2>Resistências</h2>
-        <div>
-            <label>Resistências:</label>
-            <textarea name="resistencias">{{ old('resistencias', $criatura->resistencias) }}</textarea>
-        </div>
-        <div>
-            <label>Imunidades:</label>
-            <textarea name="imunidades">{{ old('imunidades', $criatura->imunidades) }}</textarea>
-        </div>
-        <div>
-            <label>Vulnerabilidades:</label>
-            <textarea name="vulnerabilidades">{{ old('vulnerabilidades', $criatura->vulnerabilidades) }}</textarea>
-        </div>
-        <div>
-            <label>Resistências Condicionais:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Resistências</h2>
+
+          <label data-label="Resistências:">
+            <textarea name="resistencias" placeholder="Ex: Fogo, Veneno">{{ old('resistencias', $criatura->resistencias) }}</textarea>
+          </label>
+
+          <label data-label="Imunidades:">
+            <textarea name="imunidades" placeholder="Ex: Sono, Controle Mental">{{ old('imunidades', $criatura->imunidades) }}</textarea>
+          </label>
+
+          <label data-label="Vulnerabilidades:">
+            <textarea name="vulnerabilidades" placeholder="Ex: Gelo, Prata">{{ old('vulnerabilidades', $criatura->vulnerabilidades) }}</textarea>
+          </label>
+
+          <label data-label="Resistências Condicionais:">
             <textarea name="resistencias_condicionais">{{ old('resistencias_condicionais', $criatura->resistencias_condicionais) }}</textarea>
+          </label>
+
+          <label data-label="Descrição:">
+            <textarea name="descricao">{{ old('descricao', $criatura->descricao) }}</textarea>
+          </label>
         </div>
 
-        <h2>Estatísticas de Combate</h2>
-        <div>
-            <label>PV:</label>
-            <input type="text" name="pv" value="{{ old('pv', $criatura->pv) }}">
-        </div>
-        <div>
-            <label>CA:</label>
-            <input type="text" name="ca" value="{{ old('ca', $criatura->ca) }}">
-        </div>
-        <div>
-            <label>Reações:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Estatísticas de Combate</h2>
+
+          <label data-label="PV:">
+            <input type="text" name="pv" placeholder="Ex: 8d10+16" value="{{ old('pv', $criatura->pv) }}">
+          </label>
+
+          <label data-label="CA:">
+            <input type="text" name="ca" placeholder="Classe de Armadura" value="{{ old('ca', $criatura->ca) }}">
+          </label>
+
+          <label data-label="Reações:">
             <textarea name="reacoes">{{ old('reacoes', $criatura->reacoes) }}</textarea>
-        </div>
-        <div>
-            <label>Condições Infligidas:</label>
+          </label>
+
+          <label data-label="Condições Infligidas:">
             <textarea name="condicoes_infligidas">{{ old('condicoes_infligidas', $criatura->condicoes_infligidas) }}</textarea>
+          </label>
         </div>
 
-        <h2>Ações</h2>
-        <div>
-            <label>Ataques Comuns:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Ações</h2>
+
+          <label data-label="Ataques Comuns:">
             <textarea name="ataques_comuns">{{ old('ataques_comuns', $criatura->ataques_comuns) }}</textarea>
-        </div>
-        <div>
-            <label>Ações Especiais:</label>
+          </label>
+
+          <label data-label="Ações Especiais:">
             <textarea name="acoes_especiais">{{ old('acoes_especiais', $criatura->acoes_especiais) }}</textarea>
-        </div>
-        <div>
-            <label>Ações Lendárias:</label>
+          </label>
+
+          <label data-label="Ações Lendárias:">
             <textarea name="acoes_lendarias">{{ old('acoes_lendarias', $criatura->acoes_lendarias) }}</textarea>
+          </label>
         </div>
 
-        <h2>Comportamento e Lore</h2>
-        <div>
-            <label>Origem:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Comportamento e Lore</h2>
+
+          <label data-label="Origem:">
             <textarea name="origem">{{ old('origem', $criatura->origem) }}</textarea>
-        </div>
-        <div>
-            <label>Motivações:</label>
+          </label>
+
+          <label data-label="Motivações:">
             <textarea name="motivacoes">{{ old('motivacoes', $criatura->motivacoes) }}</textarea>
-        </div>
-        <div>
-            <label>Hábito Social:</label>
+          </label>
+
+          <label data-label="Hábito Social:">
             <textarea name="habito_social">{{ old('habito_social', $criatura->habito_social) }}</textarea>
-        </div>
-        <div>
-            <label>Mistérios:</label>
+          </label>
+
+          <label data-label="Mistérios:">
             <textarea name="misterios">{{ old('misterios', $criatura->misterios) }}</textarea>
-        </div>
-        <div>
-            <label>Rotina:</label>
+          </label>
+
+          <label data-label="Rotina:">
             <textarea name="rotina">{{ old('rotina', $criatura->rotina) }}</textarea>
-        </div>
-        <div>
-            <label>Impacto no Mundo:</label>
+          </label>
+
+          <label data-label="Impacto no Mundo:">
             <textarea name="impacto_mundo">{{ old('impacto_mundo', $criatura->impacto_mundo) }}</textarea>
+          </label>
         </div>
 
-        <h2>Estágios</h2>
-        <div>
-            <label>Descrição dos Estágios:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Estágios</h2>
+
+          <label data-label="Descrição Estágios:">
             <textarea name="descricao_estagios">{{ old('descricao_estagios', $criatura->descricao_estagios) }}</textarea>
-        </div>
-        <div>
-            <label>Condições de Transição:</label>
+          </label>
+
+          <label data-label="Condições de Transição:">
             <textarea name="condicoes_transicao">{{ old('condicoes_transicao', $criatura->condicoes_transicao) }}</textarea>
-        </div>
-        <div>
-            <label>Estágio 1:</label>
+          </label>
+
+          <label data-label="Estágio 1:">
             <textarea name="estagio_1">{{ old('estagio_1', $criatura->estagio_1) }}</textarea>
-        </div>
-        <div>
-            <label>Estágio 2:</label>
+          </label>
+
+          <label data-label="Estágio 2:">
             <textarea name="estagio_2">{{ old('estagio_2', $criatura->estagio_2) }}</textarea>
-        </div>
-        <div>
-            <label>Estágio 3:</label>
+          </label>
+
+          <label data-label="Estágio 3:">
             <textarea name="estagio_3">{{ old('estagio_3', $criatura->estagio_3) }}</textarea>
+          </label>
         </div>
 
-        <h2>Habilidades</h2>
-        <div>
-            <label>Habilidades Passivas:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Habilidades</h2>
+
+          <label data-label="Habilidades Passivas:">
             <textarea name="habilidades_passivas">{{ old('habilidades_passivas', $criatura->habilidades_passivas) }}</textarea>
-        </div>
-        <div>
-            <label>Habilidades Ativas:</label>
+          </label>
+
+          <label data-label="Habilidades Ativas:">
             <textarea name="habilidades_ativas">{{ old('habilidades_ativas', $criatura->habilidades_ativas) }}</textarea>
+          </label>
         </div>
 
-        <h2>Interações Narrativas</h2>
-        <div>
-            <label>Influência no Jogo:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Interações Narrativas</h2>
+
+          <label data-label="Influência no Jogo:">
             <textarea name="influencia_jogo">{{ old('influencia_jogo', $criatura->influencia_jogo) }}</textarea>
-        </div>
-        <div>
-            <label>Conexões:</label>
+          </label>
+
+          <label data-label="Conexões:">
             <textarea name="conexoes">{{ old('conexoes', $criatura->conexoes) }}</textarea>
-        </div>
-        <div>
-            <label>Detalhes Cinemáticos:</label>
+          </label>
+
+          <label data-label="Detalhes Cinemáticos:">
             <textarea name="detalhes_cinematicos">{{ old('detalhes_cinematicos', $criatura->detalhes_cinematicos) }}</textarea>
+          </label>
         </div>
 
-        <h2>Recompensas</h2>
-        <div>
-            <label>Tesouro:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Recompensas</h2>
+
+          <label data-label="Tesouro:">
             <textarea name="tesouro">{{ old('tesouro', $criatura->tesouro) }}</textarea>
-        </div>
-        <div>
-            <label>Componentes de Alquimia:</label>
+          </label>
+
+          <label data-label="Componentes de Alquimia:">
             <textarea name="componentes_alquimia">{{ old('componentes_alquimia', $criatura->componentes_alquimia) }}</textarea>
-        </div>
-        <div>
-            <label>Conhecimento:</label>
+          </label>
+
+          <label data-label="Conhecimento:">
             <textarea name="conhecimento">{{ old('conhecimento', $criatura->conhecimento) }}</textarea>
-        </div>
-        <div>
-            <label>Benefícios Temporários:</label>
+          </label>
+
+          <label data-label="Benefícios Temporários:">
             <textarea name="beneficios_temporarios">{{ old('beneficios_temporarios', $criatura->beneficios_temporarios) }}</textarea>
+          </label>
         </div>
 
-        <h2>Notas Finais</h2>
-        <div>
-            <label>Notas Opcionais:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Notas Finais</h2>
+
+          <label data-label="Notas Opcionais:">
             <textarea name="notas_opcionais">{{ old('notas_opcionais', $criatura->notas_opcionais) }}</textarea>
-        </div>
-        <div>
-            <label>Habilidades Variantes:</label>
+          </label>
+
+          <label data-label="Habilidades Variantes:">
             <textarea name="habilidades_variantes">{{ old('habilidades_variantes', $criatura->habilidades_variantes) }}</textarea>
-        </div>
-        <div>
-            <label>Evolução:</label>
+          </label>
+
+          <label data-label="Evolução:">
             <textarea name="evolucao">{{ old('evolucao', $criatura->evolucao) }}</textarea>
-        </div>
-        <div>
-            <label>Impacto no Ambiente:</label>
+          </label>
+
+          <label data-label="Impacto no Ambiente:">
             <textarea name="impacto_ambiente">{{ old('impacto_ambiente', $criatura->impacto_ambiente) }}</textarea>
+          </label>
         </div>
+      </form>
+    </div>
+  </div>
 
-        <br>
-            <button type="submit">Atualizar Criatura</button>
-        </form>
+    <div class="sidebar-direita">
+    <h3>Ações</h3>
+
+    <a href="{{ url('/') }}" class="sidebar-btn btn-menu">Voltar ao Menu</a>
+
+    <a href="{{ route('criaturas.index') }}" class="sidebar-btn btn-lista">Voltar à Lista</a>
+
+    <a href="{{ route('criaturas.show', $criatura->id) }}" class="sidebar-btn btn-visualizar">Visualizar Criatura</a>
+
+    <form action="{{ route('criaturas.destroy', $criatura->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este equipamento?')">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="sidebar-btn btn-excluir">Excluir Criatura</button>
+    </form>
+
+    <button type="submit" form="form-editar-criatura" class="sidebar-btn btn-atualizar">Atualizar Criatura</button>
     </div>
 
-    {{-- Sidebar de ações --}}
-    <div style="
-        width: 220px;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-left: 1px solid #ddd;
-        border-radius: 8px;
-        height: fit-content;
-        position: sticky;
-        top: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    ">
-        <h4 style="margin-top: 0;">Ações</h4>
-        <a href="{{ route('criaturas.index') }}" class="btn btn-secondary">← Voltar à lista</a>
-        <a href="{{ route('criaturas.show', $criatura->id) }}" class="btn btn-info">👁️ Visualizar Criatura</a>
-        <form action="{{ route('criaturas.destroy', $criatura->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta criatura?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">🗑️ Excluir Criatura</button>
-        </form>
-        <a href="{{ url('/') }}" class="btn btn-outline-dark">🏠 Voltar ao Menu</a>
-    </div>
 </div>
 @endsection

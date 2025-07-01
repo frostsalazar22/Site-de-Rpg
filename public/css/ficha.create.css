@@ -1,0 +1,197 @@
+/* Container geral */
+.ficha-container {
+  max-width: 900px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background: #fdfcf8;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 30px 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+/* Título da ficha */
+.ficha-titulo {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #2c3e50;
+}
+
+/* Cada seção com espaçamento e linha inferior */
+.ficha-section {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.ficha-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Títulos das seções */
+.ficha-section h2,
+.titulo-centralizado {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 2px solid #bdc3c7;
+  padding-bottom: 5px;
+}
+
+/* Cada par label+input é um flex container */
+.ficha-section > label,
+.ficha-section > input,
+.ficha-section > textarea {
+  /* removido display inline-block padrão */
+  margin-bottom: 0; /* reset margin bottom para o bloco */
+}
+
+/* Novo container flex para cada label+input pair */
+.ficha-section label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  max-width: 100%;
+}
+
+/* Dentro do label, o texto fica fixo e o input fica ao lado */
+.ficha-section label::before {
+  content: attr(data-label);
+  flex-shrink: 0;
+  width: 220px;
+  text-align: right;
+  font-weight: 600;
+  margin-right: 15px;
+  color: #222;
+  user-select: none;
+}
+
+/* Para inputs e textarea, largura flexível e total */
+.ficha-section input[type="text"],
+.ficha-section input[type="number"],
+.ficha-section input[type="file"],
+.ficha-section textarea {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #333;
+  background-color: #fff;
+  min-height: 36px;
+  resize: vertical;
+  max-width: 100%;
+}
+
+/* Textareas maiores */
+.ficha-section textarea {
+  min-height: 80px;
+}
+
+/* Inputs número mais estreitos */
+.ficha-section input[type="number"] {
+  max-width: 120px;
+}
+
+/* Input file largura adaptada */
+.ficha-section input[type="file"] {
+  max-width: 300px;
+}
+
+/* Foco para inputs e textarea */
+.ficha-section input[type="text"]:focus,
+.ficha-section input[type="number"]:focus,
+.ficha-section textarea:focus,
+.ficha-section input[type="file"]:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.5);
+}
+
+/* Botão de submit centralizado e estilizado */
+button[type="submit"] {
+  display: block;
+  margin: 40px auto 0;
+  padding: 14px 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  background-color: #2980b9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #1f618d;
+}
+
+/* Mensagem de erro alinhada com inputs */
+div[style*="color: red"] ul {
+  margin-left: 235px; /* alinhado com inputs */
+  color: #c0392b;
+  font-weight: 600;
+  list-style-type: disc;
+}
+
+/* Seção de atributos mantém grid */
+.ficha-section.atributos .atributos-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  text-align: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.ficha-section.atributos .atributos-grid div {
+  padding-bottom: 4px;
+}
+
+.ficha-section.atributos .atributos-grid div strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .ficha-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  .ficha-section label {
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+  .ficha-section input[type="text"],
+  .ficha-section input[type="number"],
+  .ficha-section textarea,
+  .ficha-section input[type="file"] {
+    width: 100% !important;
+    margin-top: 6px;
+  }
+  div[style*="color: red"] ul {
+    margin-left: 0;
+  }
+  button[type="submit"] {
+    width: 100%;
+  }
+}

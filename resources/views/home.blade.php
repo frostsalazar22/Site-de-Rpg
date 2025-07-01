@@ -19,7 +19,7 @@
         <option value="equipamento">Equipamentos</option>
         <option value="magia">Magias</option>
         <option value="criatura">Criaturas</option>
-        <option value="habilidade">Habilidade</option>
+        <option value="habilidade">Habilidades</option>
         <option value="cenario">Cenário</option>
       </select>
 
@@ -27,9 +27,9 @@
       <input type="text" id="search-input" class="search-input" placeholder="Ex: Espada" oninput="filtrar()">
 
       <a href="#" class="nav-link">🌹 Personagens</a>
-      <a href="#" class="nav-link">⚔️ Equipamentos</a>
+      <a href="{{ route('equipamentos.index') }}" class="nav-link">⚔️ Equipamentos</a>
       <a href="#" class="nav-link">🔥 Magias</a>
-      <a href="{{ route('criaturas.create') }}" class="nav-link">🐉 Criaturas</a>
+      <a href="{{ route('criaturas.index') }}" class="nav-link">🐉 Criaturas</a>
       <a href="#" class="nav-link">🎯 Habilidades</a>
       <a href="#" class="nav-link">🌍 Cenário</a>
     </div>
@@ -40,9 +40,15 @@
       </div>
     @endif
 
-    <a href="{{ route('criaturas.exportarSeeder') }}" class="btn btn-warning" style="margin-bottom: 15px;">
-        💾 Exportar Criaturas para Seeder
-    </a>
+
+    <div class="sidebar-content">
+      <a href="{{ route('criaturas.exportarSeeder') }}" class="nav-link">💾 Exportar Seeder</a>
+  
+      <a href="{{ route('importar.seeder') }}" class="nav-link">📥 Importar Seeder</a>
+    </div>
+
+
+
 
     <div class="author">
       Autor: <strong>Frost Salazar</strong>
@@ -52,9 +58,10 @@
   <div class="main">
     <div class="title">Itens Criados</div>
     <div class="cards" id="cards-container">
+      {{-- Criaturas --}}
       @foreach ($criaturas as $criatura)
         <a href="{{ route('criaturas.show', $criatura->id) }}" class="card"
-           data-type="criatura" data-name="{{ $criatura->nome }}" style="text-decoration: none; color: inherit;">
+           data-type="criatura" data-name="{{ strtolower($criatura->nome) }}" style="text-decoration: none; color: inherit;">
           <h3>{{ $criatura->nome }}</h3>
           @if ($criatura->imagem)
             <img src="{{ asset('storage/' . $criatura->imagem) }}" alt="Imagem de {{ $criatura->nome }}">
@@ -62,6 +69,20 @@
             <img src="{{ asset('Assets/character.png') }}" alt="Imagem padrão do item">
           @endif
           <p>Tipo: {{ $criatura->tipo ?? 'Criatura' }}</p>
+        </a>
+      @endforeach
+
+      {{-- Equipamentos --}}
+      @foreach ($equipamentos as $equipamento)
+        <a href="{{ route('equipamentos.show', $equipamento->id) }}" class="card"
+           data-type="equipamento" data-name="{{ strtolower($equipamento->nome) }}" style="text-decoration: none; color: inherit;">
+          <h3>{{ $equipamento->nome }}</h3>
+          @if ($equipamento->imagem)
+            <img src="{{ asset('storage/' . $equipamento->imagem) }}" alt="Imagem de {{ $equipamento->nome }}">
+          @else
+            <img src="{{ asset('Assets/item.png') }}" alt="Imagem padrão do equipamento">
+          @endif
+          <p>Tipo: {{ $equipamento->categoria ?? 'Equipamento' }}</p>
         </a>
       @endforeach
     </div>

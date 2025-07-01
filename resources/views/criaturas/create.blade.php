@@ -1,253 +1,291 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Registrar Nova Criatura</h1>
+<link rel="stylesheet" href="{{ asset('css/ficha.create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
-    @if ($errors->any())
-        <div style="color: red;">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+<div class="ficha-wrapper">
+  <div class="ficha-container">
+    <div class="ficha">
+      <h1 class="ficha-titulo">Registrar Nova Criatura</h1>
+
+      @if ($errors->any())
+        <div style="color: red; margin-bottom: 20px;">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
         </div>
-    @endif
+      @endif
 
-    <form action="{{ route('criaturas.store') }}" method="POST" enctype="multipart/form-data">
+      <form id="form-criar-criatura" action="{{ route('criaturas.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        {{-- Imagem + Nome + Tipo --}}
-        <h2>Identificação</h2>
-        <div>
-            <label>Imagem:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Identificação</h2>
+
+          <label data-label="Imagem:">
             <input type="file" name="imagem">
-        </div>
+          </label>
 
-        <div>
-            <label>Nome:</label>
+          <label data-label="Nome:">
             <input type="text" name="nome" required>
-        </div>
+          </label>
 
-        <div>
-            <label>Tipo:</label>
+          <label data-label="Tipo:">
             <input type="text" name="tipo">
-        </div>
+          </label>
 
-        <div>
-            <label>Subtipo:</label>
+          <label data-label="Subtipo:">
             <input type="text" name="subtipo">
-        </div>
+          </label>
 
-        <div>
-            <label>Alinhamento:</label>
+          <label data-label="Alinhamento:">
             <input type="text" name="alinhamento">
-        </div>
+          </label>
 
-        <div>
-            <label>Classe de Desafio:</label>
+          <label data-label="Classe de Desafio:">
             <input type="text" name="classe_desafio">
-        </div>
+          </label>
 
-        <div>
-            <label>Categoria de Perigo:</label>
+          <label data-label="Categoria de Perigo:">
             <input type="text" name="categoria_perigo">
+          </label>
         </div>
 
-        <h2>Características Físicas</h2>
-        <div>
-            <label>Tamanho:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Características Físicas</h2>
+
+          <label data-label="Tamanho:">
             <input type="text" name="tamanho">
-        </div>
-        <div>
-            <label>Velocidade:</label>
+          </label>
+
+          <label data-label="Velocidade:">
             <input type="text" name="velocidade">
-        </div>
-        <div>
-            <label>Aparência:</label>
+          </label>
+
+          <label data-label="Aparência:">
             <textarea name="aparencia"></textarea>
-        </div>
-        <div>
-            <label>Peso e Altura:</label>
+          </label>
+
+          <label data-label="Peso e Altura:">
             <input type="text" name="peso_altura">
-        </div>
-        <div>
-            <label>Localização Preferida:</label>
+          </label>
+
+          <label data-label="Localização Preferida:">
             <input type="text" name="localizacao_preferida">
-        </div>
-        <div>
-            <label>Presença Ambiental:</label>
+          </label>
+
+          <label data-label="Presença Ambiental:">
             <textarea name="presenca_ambiental"></textarea>
+          </label>
         </div>
 
-        <h2>Atributos</h2>
-        @foreach (['for', 'des', 'con', 'int', 'sab', 'car'] as $atributo)
-            <div>
+        <div class="ficha-section atributos">
+          <h2 class="titulo-centralizado">Atributos</h2>
+          <div class="atributos-grid">
+            @foreach (['for', 'des', 'con', 'int', 'sab', 'car'] as $atributo)
+              <div>
                 <label>{{ strtoupper($atributo) }}:</label>
                 <input type="number" name="{{ $atributo }}">
-            </div>
-        @endforeach
+              </div>
+            @endforeach
+          </div>
+        </div>
 
-        <h2>Resistências</h2>
-        <div>
-            <label>Resistências:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Resistências</h2>
+
+          <label data-label="Resistências:">
             <textarea name="resistencias" placeholder="Ex: Fogo, Veneno"></textarea>
-        </div>
-        <div>
-            <label>Imunidades:</label>
+          </label>
+
+          <label data-label="Imunidades:">
             <textarea name="imunidades" placeholder="Ex: Sono, Controle Mental"></textarea>
-        </div>
-        <div>
-            <label>Vulnerabilidades:</label>
+          </label>
+
+          <label data-label="Vulnerabilidades:">
             <textarea name="vulnerabilidades" placeholder="Ex: Gelo, Prata"></textarea>
-        </div>
-        <div>
-            <label>Resistências Condicionais:</label>
+          </label>
+
+          <label data-label="Resistências Condicionais:">
             <textarea name="resistencias_condicionais"></textarea>
+          </label>
+
+          <label data-label="Descrição:">
+            <textarea name="descricao"></textarea>
+          </label>
         </div>
 
-        <h2>Estatísticas de Combate</h2>
-        <div>
-            <label>PV:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Estatísticas de Combate</h2>
+
+          <label data-label="PV:">
             <input type="text" name="pv" placeholder="Ex: 8d10+16">
-        </div>
-        <div>
-            <label>CA:</label>
+          </label>
+
+          <label data-label="CA:">
             <input type="text" name="ca" placeholder="Classe de Armadura">
-        </div>
-        <div>
-            <label>Reações:</label>
+          </label>
+
+          <label data-label="Reações:">
             <textarea name="reacoes"></textarea>
-        </div>
-        <div>
-            <label>Condições Infligidas:</label>
+          </label>
+
+          <label data-label="Condições Infligidas:">
             <textarea name="condicoes_infligidas"></textarea>
+          </label>
         </div>
 
-        <h2>Ações</h2>
-        <div>
-            <label>Ataques Comuns:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Ações</h2>
+
+          <label data-label="Ataques Comuns:">
             <textarea name="ataques_comuns"></textarea>
-        </div>
-        <div>
-            <label>Ações Especiais:</label>
+          </label>
+
+          <label data-label="Ações Especiais:">
             <textarea name="acoes_especiais"></textarea>
-        </div>
-        <div>
-            <label>Ações Lendárias:</label>
+          </label>
+
+          <label data-label="Ações Lendárias:">
             <textarea name="acoes_lendarias"></textarea>
+          </label>
         </div>
 
-        <h2>Comportamento e Lore</h2>
-        <div>
-            <label>Origem:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Comportamento e Lore</h2>
+
+          <label data-label="Origem:">
             <textarea name="origem"></textarea>
-        </div>
-        <div>
-            <label>Motivações:</label>
+          </label>
+
+          <label data-label="Motivações:">
             <textarea name="motivacoes"></textarea>
-        </div>
-        <div>
-            <label>Hábito Social:</label>
+          </label>
+
+          <label data-label="Hábito Social:">
             <textarea name="habito_social"></textarea>
-        </div>
-        <div>
-            <label>Mistérios:</label>
+          </label>
+
+          <label data-label="Mistérios:">
             <textarea name="misterios"></textarea>
-        </div>
-        <div>
-            <label>Rotina:</label>
+          </label>
+
+          <label data-label="Rotina:">
             <textarea name="rotina"></textarea>
-        </div>
-        <div>
-            <label>Impacto no Mundo:</label>
+          </label>
+
+          <label data-label="Impacto no Mundo:">
             <textarea name="impacto_mundo"></textarea>
+          </label>
         </div>
 
-        <h2>Estágios</h2>
-        <div>
-            <label>Descrição Estágios:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Estágios</h2>
+
+          <label data-label="Descrição Estágios:">
             <textarea name="descricao_estagios"></textarea>
-        </div>
-        <div>
-            <label>Condições de Transição:</label>
+          </label>
+
+          <label data-label="Condições de Transição:">
             <textarea name="condicoes_transicao"></textarea>
-        </div>
-        <div>
-            <label>Estágio 1:</label>
+          </label>
+
+          <label data-label="Estágio 1:">
             <textarea name="estagio_1"></textarea>
-        </div>
-        <div>
-            <label>Estágio 2:</label>
+          </label>
+
+          <label data-label="Estágio 2:">
             <textarea name="estagio_2"></textarea>
-        </div>
-        <div>
-            <label>Estágio 3:</label>
+          </label>
+
+          <label data-label="Estágio 3:">
             <textarea name="estagio_3"></textarea>
+          </label>
         </div>
 
-        <h2>Habilidades</h2>
-        <div>
-            <label>Habilidades Passivas:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Habilidades</h2>
+
+          <label data-label="Habilidades Passivas:">
             <textarea name="habilidades_passivas"></textarea>
-        </div>
-        <div>
-            <label>Habilidades Ativas:</label>
+          </label>
+
+          <label data-label="Habilidades Ativas:">
             <textarea name="habilidades_ativas"></textarea>
+          </label>
         </div>
 
-        <h2>Interações Narrativas</h2>
-        <div>
-            <label>Influência no Jogo:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Interações Narrativas</h2>
+
+          <label data-label="Influência no Jogo:">
             <textarea name="influencia_jogo"></textarea>
-        </div>
-        <div>
-            <label>Conexões:</label>
+          </label>
+
+          <label data-label="Conexões:">
             <textarea name="conexoes"></textarea>
-        </div>
-        <div>
-            <label>Detalhes Cinemáticos:</label>
+          </label>
+
+          <label data-label="Detalhes Cinemáticos:">
             <textarea name="detalhes_cinematicos"></textarea>
+          </label>
         </div>
 
-        <h2>Recompensas</h2>
-        <div>
-            <label>Tesouro:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Recompensas</h2>
+
+          <label data-label="Tesouro:">
             <textarea name="tesouro"></textarea>
-        </div>
-        <div>
-            <label>Componentes de Alquimia:</label>
+          </label>
+
+          <label data-label="Componentes de Alquimia:">
             <textarea name="componentes_alquimia"></textarea>
-        </div>
-        <div>
-            <label>Conhecimento:</label>
+          </label>
+
+          <label data-label="Conhecimento:">
             <textarea name="conhecimento"></textarea>
-        </div>
-        <div>
-            <label>Benefícios Temporários:</label>
+          </label>
+
+          <label data-label="Benefícios Temporários:">
             <textarea name="beneficios_temporarios"></textarea>
+          </label>
         </div>
 
-        <h2>Notas Finais</h2>
-        <div>
-            <label>Notas Opcionais:</label>
+        <div class="ficha-section">
+          <h2 class="titulo-centralizado">Notas Finais</h2>
+
+          <label data-label="Notas Opcionais:">
             <textarea name="notas_opcionais"></textarea>
-        </div>
-        <div>
-            <label>Habilidades Variantes:</label>
-            <textarea name="habilidades_variantes"></textarea>
-        </div>
-        <div>
-            <label>Evolução:</label>
-            <textarea name="evolucao"></textarea>
-        </div>
-        <div>
-            <label>Impacto no Ambiente:</label>
-            <textarea name="impacto_ambiente"></textarea>
-        </div>
+          </label>
 
-        <br>
-        <button type="submit">Salvar Criatura</button>
-    </form>
+          <label data-label="Habilidades Variantes:">
+            <textarea name="habilidades_variantes"></textarea>
+          </label>
+
+          <label data-label="Evolução:">
+            <textarea name="evolucao"></textarea>
+          </label>
+
+          <label data-label="Impacto no Ambiente:">
+            <textarea name="impacto_ambiente"></textarea>
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <div class="sidebar-direita">
+    <h3>Ações</h3>
+
+    <a href="{{ url('/') }}" class="sidebar-btn btn-menu">Voltar ao Menu</a>
+
+    <a href="{{ route('criaturas.index') }}" class="sidebar-btn btn-lista">Voltar à Lista</a>
+
+    <button type="submit" form="form-criar-criatura" class="sidebar-btn btn-atualizar">Salvar Criatura</button>
+    </div>
+
 </div>
 @endsection

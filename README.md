@@ -42,6 +42,9 @@ Caso a tabela `criaturas` seja apagada ou o sistema precise ser reiniciado, bast
 
 ```bash
 php artisan db:seed --class=CriaturaSeeder
+
+php artisan db:seed --class=GuiaRPGSeeder
+
 ```
 
 ---
