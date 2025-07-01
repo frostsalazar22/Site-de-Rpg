@@ -33,7 +33,7 @@ O sistema possui uma funcionalidade para **salvar todos os dados da tabela de cr
 Um botão no site gera automaticamente um seeder com todas as criaturas registradas, localizado em:
 
 ```
-database/seeders/CriaturaSeeder.php
+database/seeders/GuiaRPGSeeder.php
 ```
 
 ### 🔄 Como restaurar os dados usando o seeder
@@ -41,7 +41,6 @@ database/seeders/CriaturaSeeder.php
 Caso a tabela `criaturas` seja apagada ou o sistema precise ser reiniciado, basta executar o comando abaixo para recarregar os dados salvos:
 
 ```bash
-php artisan db:seed --class=CriaturaSeeder
 
 php artisan db:seed --class=GuiaRPGSeeder
 
@@ -74,21 +73,44 @@ seu-projeto/
 ├── app/
 │   ├── Http/
 │   │   └── Controllers/
-│   │       ├── ExportSeederController.php
+│   │       ├── Controller.php
 │   │       ├── CriaturaController.php
+│   │       ├── EquipamentoController.php
+│   │       ├── ExportSeederController.php
 │   │       └── HomeController.php
+│   │       ├── SeederExecController.php
 │   └── Models/
-│       └── Criatura.php
+│       ├── Criatura.php
+│       └── Equipamento.php
 ├── database/
 │   ├── migrations/
 │   │   └── xxxx_xx_xx_xxxxxx_create_criaturas_table.php
+│   │   └── xxxx_xx_xx_xxxxxx_create_equipamentos_table.php
 │   └── seeders/
-│       └── CriaturaSeeder.php
+│       └── GuiaRPGSeeder.php
+├── public/
+│   └── Assets/
+│       ├── character.png
+│       ├── magia.png
+│   └── css/
+│       ├── buttons.css
+│       ├── ficha.create.css
+│       ├── ficha.view.css
+│       ├── home.blade.php
+│       ├── sidebar.php
+│   └── js/
+│       ├── home.js
 ├── resources/
 │   └── views/
 │       ├── home.blade.php
-│       └── criaturas/
+│       └── layouts/
 │           ├── app.blade.php
+│       └── criaturas/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+│       └── equipamentos/
 │           ├── index.blade.php
 │           ├── create.blade.php
 │           ├── edit.blade.php
