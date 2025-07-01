@@ -58,6 +58,7 @@ php artisan db:seed --class=GuiaRPGSeeder
 ## 🚧 Status do Projeto
 
 - ✅ **Criaturas**
+- ✅ **Equipamento**
   - CRUD completo
   - Exportação/importação via Seeder
 
