@@ -9,11 +9,11 @@ Este é um site privado de RPG desenvolvido com **Laravel** e **XAMPP**, com o o
 O site suporta os seguintes tipos de registros:
 
 - 🐉 **Criaturas**
+- 🗡️ **Equipamentos**
+- 🧙‍♂️ **Personagens**
 - ✨ **Magias**
 - 🎯 **Habilidades**
 - 🌍 **Cenário**
-- 🧙‍♂️ **Personagens**
-- 🗡️ **Equipamentos**
 
 Para **cada tipo de conteúdo**, o usuário pode:
 
@@ -26,44 +26,52 @@ Para **cada tipo de conteúdo**, o usuário pode:
 
 ## 💾 Funcionalidade Extra: Exportação e Importação de Dados
 
-O sistema possui uma funcionalidade para **salvar todos os dados da tabela de criaturas** em um arquivo **Seeder**. Isso permite que você guarde ou compartilhe o estado atual da base de dados de criaturas facilmente.
+O sistema possui uma funcionalidade para **salvar todos os dados de Criaturas, Equipamentos e Personagens** em um único arquivo **Seeder**, facilitando backup e portabilidade.
 
-### ✅ Como salvar os dados das criaturas atuais
+### ✅ Como salvar os dados atuais
 
-Um botão no site gera automaticamente um seeder com todas as criaturas registradas, localizado em:
+Um botão no site gera automaticamente um seeder com todos os registros, localizado em:
 
 ```
 database/seeders/GuiaRPGSeeder.php
-```
+
+````
 
 ### 🔄 Como restaurar os dados usando o seeder
 
-Caso a tabela `criaturas` seja apagada ou o sistema precise ser reiniciado, basta executar o comando abaixo para recarregar os dados salvos:
+Caso as tabelas sejam apagadas ou o sistema precise ser reiniciado, basta executar o comando abaixo:
 
 ```bash
-
 php artisan db:seed --class=GuiaRPGSeeder
-
-```
+````
 
 ---
 
 ## ⚙️ Tecnologias Utilizadas
 
-- Laravel
-- XAMPP
+* Laravel
+* XAMPP
 
+---
+
+## 🛠️ Manutenção de Arquivos
+
+Para que as imagens enviadas fiquem visíveis nas views, execute:
+
+```bash
+php artisan storage:link
+```
 ---
 
 ## 🚧 Status do Projeto
 
-- ✅ **Criaturas**
-- ✅ **Equipamento**
-  - CRUD completo
-  - Exportação/importação via Seeder
+* ✅ **Criaturas**
+* ✅ **Equipamentos**
+* ✅ **Personagens**
 
-- 🔧 **Outros tipos (Personagem, Magia, etc.)**
-  - Em desenvolvimento
+  * CRUD completo
+  * Exportação/importação via Seeder
+* 🔧 **Outros tipos (Magias, Habilidades, Cenário)**: *Em desenvolvimento*
 
 ---
 
@@ -77,16 +85,19 @@ seu-projeto/
 │   │       ├── Controller.php
 │   │       ├── CriaturaController.php
 │   │       ├── EquipamentoController.php
+│   │       ├── PersonagemController.php
 │   │       ├── ExportSeederController.php
-│   │       └── HomeController.php
 │   │       ├── SeederExecController.php
+│   │       └── HomeController.php
 │   └── Models/
 │       ├── Criatura.php
-│       └── Equipamento.php
+│       ├── Equipamento.php
+│       └── Personagem.php
 ├── database/
 │   ├── migrations/
 │   │   └── xxxx_xx_xx_xxxxxx_create_criaturas_table.php
 │   │   └── xxxx_xx_xx_xxxxxx_create_equipamentos_table.php
+│   │   └── xxxx_xx_xx_xxxxxx_create_players_table.php
 │   └── seeders/
 │       └── GuiaRPGSeeder.php
 ├── public/
@@ -97,21 +108,26 @@ seu-projeto/
 │       ├── buttons.css
 │       ├── ficha.create.css
 │       ├── ficha.view.css
-│       ├── home.blade.php
-│       ├── sidebar.php
+│       ├── home.css
+│       ├── sidebar.css
 │   └── js/
-│       ├── home.js
+│       └── home.js
 ├── resources/
 │   └── views/
 │       ├── home.blade.php
 │       └── layouts/
-│           ├── app.blade.php
+│           └── app.blade.php
 │       └── criaturas/
 │           ├── index.blade.php
 │           ├── create.blade.php
 │           ├── edit.blade.php
 │           └── show.blade.php
 │       └── equipamentos/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+│       └── personagens/
 │           ├── index.blade.php
 │           ├── create.blade.php
 │           ├── edit.blade.php
@@ -124,4 +140,9 @@ seu-projeto/
 
 ## ✍️ Autoria
 
-**Author:** Frost Salazar
+**Autor:** Frost Salazar
+
+```
+
+Se quiser, posso também salvar esse conteúdo em um arquivo `.md` e te enviar. Deseja isso?
+```

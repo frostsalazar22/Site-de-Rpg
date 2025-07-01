@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Criatura;
 use App\Models\Equipamento;
+use App\Models\Player;
 
 class GuiaRPGSeeder extends Seeder
 {
@@ -367,9 +368,9 @@ class GuiaRPGSeeder extends Seeder
     'habilidades_variantes' => NULL,
     'evolucao' => NULL,
     'impacto_ambiente' => NULL,
-    'imagem' => 'criaturas/vZin1URSiR9lrK2DHebr7gzqrTBfMbIHl6sUdTsG.jpg',
+    'imagem' => 'criaturas/B0uLTstaDzFhmSywuH9luRjkCDjBwvC6U67RP3JF.jpg',
     'created_at' => '2025-07-01T03:08:10.000000Z',
-    'updated_at' => '2025-07-01T03:38:18.000000Z',
+    'updated_at' => '2025-07-01T22:51:53.000000Z',
   ),
   6 => 
   array (
@@ -607,9 +608,9 @@ class GuiaRPGSeeder extends Seeder
     'habilidades_variantes' => NULL,
     'evolucao' => NULL,
     'impacto_ambiente' => NULL,
-    'imagem' => 'criaturas/Vm6P4TRLLb8GVUwOOJKj2T9cU1pAU41zbA61Yy1X.jpg',
+    'imagem' => 'criaturas/ZZa5827YKeLDL6JLBZBXl3lDh2HRTKyEzHINbF9E.jpg',
     'created_at' => '2025-07-01T18:43:05.000000Z',
-    'updated_at' => '2025-07-01T18:44:32.000000Z',
+    'updated_at' => '2025-07-01T22:52:49.000000Z',
   ),
 );
         foreach ($criaturas as $item) {
@@ -640,13 +641,97 @@ class GuiaRPGSeeder extends Seeder
     'raridade' => 'ad',
     'restricao_uso' => 'Arma',
     'evolucoes' => 'Arma',
-    'imagem' => 'equipamentos/IiKWyFJg6uEGCTkYSlAHVIRHbzvCgWhzTGWuOJFM.jpg',
+    'imagem' => 'equipamentos/jRvMMWalV67WZljimdr5NzUx3S9dL2TaPImrlt3U.jpg',
     'created_at' => '2025-07-01T06:12:16.000000Z',
-    'updated_at' => '2025-07-01T18:02:06.000000Z',
+    'updated_at' => '2025-07-01T22:52:33.000000Z',
+  ),
+  1 => 
+  array (
+    'id' => 2,
+    'nome' => 'Colocar de diamante',
+    'categoria' => NULL,
+    'tipo_uso' => NULL,
+    'classe_necessaria' => NULL,
+    'requisitos' => NULL,
+    'peso' => NULL,
+    'local_origem' => NULL,
+    'bonus' => NULL,
+    'habilidades_passivas' => NULL,
+    'habilidades_ativas' => NULL,
+    'durabilidade' => NULL,
+    'afinidade_elemental' => NULL,
+    'encantamentos' => NULL,
+    'historia' => NULL,
+    'curiosidades' => NULL,
+    'conexoes' => NULL,
+    'preco' => NULL,
+    'raridade' => NULL,
+    'restricao_uso' => NULL,
+    'evolucoes' => NULL,
+    'imagem' => 'equipamentos/mfg4ZO6H1lDpqzwmCYVfOzCAjfpBbOJoMoj8kAiA.jpg',
+    'created_at' => '2025-07-01T22:48:00.000000Z',
+    'updated_at' => '2025-07-01T22:48:00.000000Z',
   ),
 );
         foreach ($equipamentos as $item) {
             Equipamento::create($item);
+        }
+
+        $players = array (
+  0 => 
+  array (
+    'id' => 1,
+    'nome' => 'Sofia Salazar',
+    'raca' => NULL,
+    'classe' => NULL,
+    'alinhamento' => NULL,
+    'idade' => NULL,
+    'genero' => NULL,
+    'altura' => NULL,
+    'peso' => NULL,
+    'aparencia' => NULL,
+    'forca' => NULL,
+    'destreza' => NULL,
+    'constituicao' => NULL,
+    'inteligencia' => NULL,
+    'sabedoria' => NULL,
+    'carisma' => NULL,
+    'pontos_vida_max' => NULL,
+    'pontos_vida_atual' => NULL,
+    'classe_armadura' => NULL,
+    'iniciativa' => NULL,
+    'velocidade' => NULL,
+    'habilidades_passivas' => NULL,
+    'habilidades_ativas' => NULL,
+    'magias_conhecidas' => NULL,
+    'slots_magia' => NULL,
+    'magias_preparadas' => NULL,
+    'talentos_proficiências' => NULL,
+    'equipamentos_basicos' => NULL,
+    'itens_utilizaveis' => NULL,
+    'recursos' => NULL,
+    'motivacoes' => NULL,
+    'medos_fraquezas' => NULL,
+    'traços_personalidade' => NULL,
+    'ideais' => NULL,
+    'vinculos' => NULL,
+    'defeitos' => NULL,
+    'background' => NULL,
+    'eventos_marcantes' => NULL,
+    'conexoes' => NULL,
+    'segredos' => NULL,
+    'ataques_magias' => NULL,
+    'resistencias' => NULL,
+    'fraquezas' => NULL,
+    'testes_resistencia' => NULL,
+    'frases_efeito' => NULL,
+    'imagem' => 'players/yff5UCV4SXVfCx6eR2ohFhbga7dlbcwyeYZvfMzK.jpg',
+    'created_at' => '2025-07-01T22:42:36.000000Z',
+    'updated_at' => '2025-07-01T22:45:54.000000Z',
+  ),
+);
+        foreach ($players as $item) {
+            Player::create($item);
         }
     }
 }

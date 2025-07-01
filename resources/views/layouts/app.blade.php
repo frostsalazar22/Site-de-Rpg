@@ -75,6 +75,7 @@
     <div class="sidebar">
         <div class="sidebar-content">
             <h2>Guia RPG</h2>
+            <a href="{{ route('players.index') }}" class="nav-link">🌹 Players</a>
             <a href="{{ route('criaturas.index') }}" class="nav-link">🐉 Criaturas</a>
             <a href="{{ route('equipamentos.index') }}" class="nav-link">⚔️ Equipamentos</a>
             <!-- Adicione outras opções aqui -->

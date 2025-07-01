@@ -15,7 +15,7 @@
       <label class="filter-label" for="category-select">Filtrar por tipo:</label>
       <select id="category-select" class="filter-select" onchange="filtrar()">
         <option value="todos">Todos</option>
-        <option value="personagem">Personagens</option>
+        <option value="player">Players</option>
         <option value="equipamento">Equipamentos</option>
         <option value="magia">Magias</option>
         <option value="criatura">Criaturas</option>
@@ -26,7 +26,7 @@
       <label class="filter-label" for="search-input">Buscar por nome:</label>
       <input type="text" id="search-input" class="search-input" placeholder="Ex: Espada" oninput="filtrar()">
 
-      <a href="#" class="nav-link">🌹 Personagens</a>
+      <a href="{{ route('players.index') }}" class="nav-link">🌹 Players</a>
       <a href="{{ route('equipamentos.index') }}" class="nav-link">⚔️ Equipamentos</a>
       <a href="#" class="nav-link">🔥 Magias</a>
       <a href="{{ route('criaturas.index') }}" class="nav-link">🐉 Criaturas</a>
@@ -40,15 +40,10 @@
       </div>
     @endif
 
-
     <div class="sidebar-content">
       <a href="{{ route('criaturas.exportarSeeder') }}" class="nav-link">💾 Exportar Seeder</a>
-  
       <a href="{{ route('importar.seeder') }}" class="nav-link">📥 Importar Seeder</a>
     </div>
-
-
-
 
     <div class="author">
       Autor: <strong>Frost Salazar</strong>
@@ -85,6 +80,21 @@
           <p>Tipo: {{ $equipamento->categoria ?? 'Equipamento' }}</p>
         </a>
       @endforeach
+
+      {{-- Players --}}
+      @foreach ($players as $player)
+        <a href="{{ route('players.show', $player->id) }}" class="card"
+          data-type="player" data-name="{{ strtolower($player->nome) }}" style="text-decoration: none; color: inherit;">
+          <h3>{{ $player->nome }}</h3>
+          @if ($player->imagem)
+            <img src="{{ asset('storage/' . $player->imagem) }}" alt="Imagem de {{ $player->nome }}">
+          @else
+            <img src="{{ asset('Assets/character.png') }}" alt="Imagem padrão do player">
+          @endif
+          <p>Classe: {{ $player->classe ?? 'Player' }}</p>
+        </a>
+      @endforeach
+
     </div>
   </div>
 
