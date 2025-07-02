@@ -8,20 +8,23 @@ use Illuminate\Support\Facades\Storage;
 
 class EquipamentoController extends Controller
 {
+    // Lista todos os equipamentos
     public function index()
     {
         $equipamentos = Equipamento::all();
         return view('equipamentos.index', compact('equipamentos'));
     }
 
+    // Formulário para criar novo equipamento
     public function create()
     {
         return view('equipamentos.create');
     }
 
+    // Armazena novo equipamento
     public function store(Request $request)
     {
-        $dados = $request->validate([
+        $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'categoria' => 'nullable|string|max:255',
             'tipo_uso' => 'nullable|string|max:255',
@@ -42,31 +45,34 @@ class EquipamentoController extends Controller
             'raridade' => 'nullable|string|max:255',
             'restricao_uso' => 'nullable|string',
             'evolucoes' => 'nullable|string',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('imagem')) {
-            $dados['imagem'] = $request->file('imagem')->store('equipamentos', 'public');
+            $validated['imagem'] = $request->file('imagem')->store('equipamentos', 'public');
         }
 
-        Equipamento::create($dados);
+        Equipamento::create($validated);
 
-        return redirect()->route('equipamentos.index')->with('success', 'Equipamento criado com sucesso.');
+        return redirect()->route('equipamentos.index')->with('success', 'Equipamento criado com sucesso!');
     }
 
+    // Exibe detalhes do equipamento
     public function show(Equipamento $equipamento)
     {
         return view('equipamentos.show', compact('equipamento'));
     }
 
+    // Formulário para editar equipamento
     public function edit(Equipamento $equipamento)
     {
         return view('equipamentos.edit', compact('equipamento'));
     }
 
+    // Atualiza o equipamento
     public function update(Request $request, Equipamento $equipamento)
     {
-        $dados = $request->validate([
+        $validated = $request->validate([
             'nome' => 'required|string|max:255',
             'categoria' => 'nullable|string|max:255',
             'tipo_uso' => 'nullable|string|max:255',
@@ -87,29 +93,23 @@ class EquipamentoController extends Controller
             'raridade' => 'nullable|string|max:255',
             'restricao_uso' => 'nullable|string',
             'evolucoes' => 'nullable|string',
-            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imagem' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($request->hasFile('imagem')) {
-            if ($equipamento->imagem) {
-                Storage::disk('public')->delete($equipamento->imagem);
-            }
-            $dados['imagem'] = $request->file('imagem')->store('equipamentos', 'public');
+            $validated['imagem'] = $request->file('imagem')->store('equipamentos', 'public');
         }
 
-        $equipamento->update($dados);
+        $equipamento->update($validated);
 
-        return redirect()->route('equipamentos.show', $equipamento)->with('success', 'Equipamento atualizado com sucesso.');
+        return redirect()->route('equipamentos.index')->with('success', 'Equipamento atualizado com sucesso!');
     }
 
+    // Excluir equipamento
     public function destroy(Equipamento $equipamento)
     {
-        if ($equipamento->imagem) {
-            Storage::disk('public')->delete($equipamento->imagem);
-        }
-
         $equipamento->delete();
 
-        return redirect()->route('equipamentos.index')->with('success', 'Equipamento excluído com sucesso.');
+        return redirect()->route('equipamentos.index')->with('success', 'Equipamento excluído com sucesso!');
     }
 }

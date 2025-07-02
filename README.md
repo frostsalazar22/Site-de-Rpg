@@ -13,14 +13,14 @@ O site suporta os seguintes tipos de registros:
 - 🧙‍♂️ **Personagens**
 - ✨ **Magias**
 - 🎯 **Habilidades**
-- 🌍 **Cenário**
+- 🌍 **Cenários**
 
 Para **cada tipo de conteúdo**, o usuário pode:
 
 - ✅ Criar um novo item  
-- 👁️ Visualizar informações detalhadas ao clicar no card  
-- 📝 Editar os dados existentes  
-- 🗑️ Deletar da tabela o item  
+- ✅ Visualizar informações detalhadas ao clicar no card  
+- ✅ Editar os dados existentes  
+- ✅ Deletar da tabela o item  
 
 ---
 
@@ -34,8 +34,7 @@ Um botão no site gera automaticamente um seeder com todos os registros, localiz
 
 ```
 database/seeders/GuiaRPGSeeder.php
-
-````
+```
 
 ### 🔄 Como restaurar os dados usando o seeder
 
@@ -43,7 +42,7 @@ Caso as tabelas sejam apagadas ou o sistema precise ser reiniciado, basta execut
 
 ```bash
 php artisan db:seed --class=GuiaRPGSeeder
-````
+```
 
 ---
 
@@ -61,6 +60,7 @@ Para que as imagens enviadas fiquem visíveis nas views, execute:
 ```bash
 php artisan storage:link
 ```
+
 ---
 
 ## 🚧 Status do Projeto
@@ -68,10 +68,12 @@ php artisan storage:link
 * ✅ **Criaturas**
 * ✅ **Equipamentos**
 * ✅ **Personagens**
+* ✅ **Magias**
+* ✅ **Habilidades**
+* ✅ **Cenários**
 
   * CRUD completo
   * Exportação/importação via Seeder
-* 🔧 **Outros tipos (Magias, Habilidades, Cenário)**: *Em desenvolvimento*
 
 ---
 
@@ -85,19 +87,28 @@ seu-projeto/
 │   │       ├── Controller.php
 │   │       ├── CriaturaController.php
 │   │       ├── EquipamentoController.php
-│   │       ├── PersonagemController.php
+│   │       ├── PlayerController.php
+│   │       ├── MagiaController.php
+│   │       ├── HabilidadeController.php
+│   │       ├── CenarioController.php
 │   │       ├── ExportSeederController.php
 │   │       ├── SeederExecController.php
 │   │       └── HomeController.php
 │   └── Models/
 │       ├── Criatura.php
 │       ├── Equipamento.php
-│       └── Personagem.php
+│       ├── Player.php
+│       ├── Magia.php
+│       ├── Habilidade.php
+│       └── Cenario.php
 ├── database/
 │   ├── migrations/
-│   │   └── xxxx_xx_xx_xxxxxx_create_criaturas_table.php
-│   │   └── xxxx_xx_xx_xxxxxx_create_equipamentos_table.php
-│   │   └── xxxx_xx_xx_xxxxxx_create_players_table.php
+│   │   ├── xxxx_xx_xx_xxxxxx_create_criaturas_table.php
+│   │   ├── xxxx_xx_xx_xxxxxx_create_equipamentos_table.php
+│   │   ├── xxxx_xx_xx_xxxxxx_create_players_table.php
+│   │   ├── xxxx_xx_xx_xxxxxx_create_magias_table.php
+│   │   ├── xxxx_xx_xx_xxxxxx_create_habilidades_table.php
+│   │   └── xxxx_xx_xx_xxxxxx_create_cenarios_table.php
 │   └── seeders/
 │       └── GuiaRPGSeeder.php
 ├── public/
@@ -127,7 +138,22 @@ seu-projeto/
 │           ├── create.blade.php
 │           ├── edit.blade.php
 │           └── show.blade.php
-│       └── personagens/
+│       └── players/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+│       └── magias/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+│       └── habilidades/
+│           ├── index.blade.php
+│           ├── create.blade.php
+│           ├── edit.blade.php
+│           └── show.blade.php
+│       └── cenarios/
 │           ├── index.blade.php
 │           ├── create.blade.php
 │           ├── edit.blade.php
@@ -141,8 +167,3 @@ seu-projeto/
 ## ✍️ Autoria
 
 **Autor:** Frost Salazar
-
-```
-
-Se quiser, posso também salvar esse conteúdo em um arquivo `.md` e te enviar. Deseja isso?
-```

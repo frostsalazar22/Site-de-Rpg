@@ -11,7 +11,7 @@ class PlayerController extends Controller
     // Listar todos os players
     public function index()
     {
-        $players = Player::paginate(10); // paginar de 10 em 10
+        $players = Player::paginate(10);
         return view('players.index', compact('players'));
     }
 
@@ -86,7 +86,6 @@ class PlayerController extends Controller
         return view('players.show', compact('player'));
     }
 
-
     // Form para editar Player
     public function edit(Player $player)
     {
@@ -148,6 +147,7 @@ class PlayerController extends Controller
             if ($player->imagem) {
                 Storage::disk('public')->delete($player->imagem);
             }
+
             $data['imagem'] = $request->file('imagem')->store('players', 'public');
         }
 
@@ -156,7 +156,7 @@ class PlayerController extends Controller
         return redirect()->route('players.show', $player)->with('success', 'Player atualizado com sucesso!');
     }
 
-    // Deletar Player
+    // Remover Player
     public function destroy(Player $player)
     {
         if ($player->imagem) {
@@ -165,6 +165,6 @@ class PlayerController extends Controller
 
         $player->delete();
 
-        return redirect()->route('players.index')->with('success', 'Player excluído com sucesso!');
+        return redirect()->route('players.index')->with('success', 'Player excluído!');
     }
 }

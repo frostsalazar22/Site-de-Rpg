@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Criatura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CriaturaController extends Controller
 {
@@ -23,7 +24,7 @@ class CriaturaController extends Controller
     // Salva uma nova criatura
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'nome' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:255',
             'subtipo' => 'nullable|string|max:255',
@@ -81,10 +82,10 @@ class CriaturaController extends Controller
         ]);
 
         if ($request->hasFile('imagem')) {
-            $validated['imagem'] = $request->file('imagem')->store('criaturas', 'public');
+            $data['imagem'] = $request->file('imagem')->store('criaturas', 'public');
         }
 
-        Criatura::create($validated);
+        Criatura::create($data);
 
         return redirect()->route('criaturas.index')->with('success', 'Criatura criada com sucesso!');
     }
@@ -104,7 +105,7 @@ class CriaturaController extends Controller
     // Atualiza a criatura
     public function update(Request $request, Criatura $criatura)
     {
-        $validated = $request->validate([
+        $data = $request->validate([
             'nome' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:255',
             'subtipo' => 'nullable|string|max:255',
@@ -162,17 +163,27 @@ class CriaturaController extends Controller
         ]);
 
         if ($request->hasFile('imagem')) {
-            $validated['imagem'] = $request->file('imagem')->store('criaturas', 'public');
+            // Remove imagem anterior
+            if ($criatura->imagem) {
+                Storage::disk('public')->delete($criatura->imagem);
+            }
+
+            $data['imagem'] = $request->file('imagem')->store('criaturas', 'public');
         }
 
-        $criatura->update($validated);
+        $criatura->update($data);
 
-        return redirect()->route('criaturas.index')->with('success', 'Criatura atualizada com sucesso!');
+        return redirect()->route('criaturas.show', $criatura)->with('success', 'Criatura atualizada com sucesso!');
     }
 
     // Remove a criatura
     public function destroy(Criatura $criatura)
     {
+        // Remove imagem do storage se existir
+        if ($criatura->imagem) {
+            Storage::disk('public')->delete($criatura->imagem);
+        }
+
         $criatura->delete();
 
         return redirect()->route('criaturas.index')->with('success', 'Criatura excluída!');

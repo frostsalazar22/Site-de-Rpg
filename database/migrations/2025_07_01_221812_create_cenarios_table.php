@@ -52,6 +52,7 @@ return new class extends Migration
             $table->text('recursos_jogadores')->nullable(); // Pontos de interesse, mapas
             $table->text('recompensas_tesouros')->nullable(); // Itens raros, artefatos mágicos
 
+            $table->string('imagem')->nullable();
             $table->timestamps();
         });
     }

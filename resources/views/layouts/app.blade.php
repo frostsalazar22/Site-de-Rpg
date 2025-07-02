@@ -75,9 +75,13 @@
     <div class="sidebar">
         <div class="sidebar-content">
             <h2>Guia RPG</h2>
-            <a href="{{ route('players.index') }}" class="nav-link">🌹 Players</a>
-            <a href="{{ route('criaturas.index') }}" class="nav-link">🐉 Criaturas</a>
-            <a href="{{ route('equipamentos.index') }}" class="nav-link">⚔️ Equipamentos</a>
+            <a href="{{ route('players.index') }}" class="nav-link">Personagem</a>
+            <a href="{{ route('equipamentos.index') }}" class="nav-link">Equipamentos</a>
+            <a href="{{ route('magias.index') }}" class="nav-link">Magias</a>
+            <a href="{{ route('criaturas.index') }}" class="nav-link">Criaturas</a>
+            <a href="{{ route('habilidades.index') }}" class="nav-link">Habilidades</a>
+            <a href="{{ route('cenarios.index') }}" class="nav-link">Cenário</a>
+
             <!-- Adicione outras opções aqui -->
         </div>
         <div class="author">
